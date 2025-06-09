@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+
+FILE *text;
+
+struct book{
+
+    char name[30],surname[30];
+    long int phone;
+    int age;  
+};
+    struct book user[10];
+
+void read_list(void){
+
+int x;
+x=0;
+
+    for(x=0;x<10;x++){
+        printf("Enter name:\n");
+        fflush(stdin);
+        fgets(user[x].name,30,stdin);
+        printf("Enter Surname:\n");
+        fflush(stdin);
+        fgets(user[x].surname,30,stdin);
+        printf("Enter Phone Number:\n");
+        scanf("%li", &user[x].phone);
+        printf("Enter Age:\n");
+        scanf("%i", &user[x].age);
+    }
+}
+void print_list(void){
+int y;
+y=0;
+
+    text= fopen("List.txt","w");
+    if (text ==NULL){
+         printf("Access Denied!!\n");
+         return ;
+    }
+    for(y=0;y<10;y++){
+        fprintf(text,"Person %i:\n", y+1);
+        fprintf(text,"Name:%s %s\n", user[y].name, user[y].surname);
+        fprintf(text,"Age:%li\n", user[y].age);
+        fprintf(text,"Phone:%li\n", user[y].phone);
+        fprintf(text, "-----------------------------------\n");
+    }
+    fclose(text);
+    printf("Text Saved Successfull!!!");
+}
+int main (void){
+    printf("----------Phone List-----------\n");
+     read_list();
+     print_list();
+    return 0;
+}
